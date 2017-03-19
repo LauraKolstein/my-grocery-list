@@ -25,6 +25,15 @@ gulp.task('js', () => {
         .pipe(reload({stream:true}));
 });
 
+gulp.task('styles', () => {
+    return gulp.src('./src/styles/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(autoprefixer('last 2 versions', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
+    .pipe(concat('style.css'))
+    .pipe(gulp.dest('./public/styles'))
+    .pipe(reload({stream: true}))    
+});
+
 gulp.task('bs', () => {
     browserSync.init({
         server: {
@@ -36,5 +45,5 @@ gulp.task('bs', () => {
 
 gulp.task('default', ['js','bs'], () => {
     gulp.watch('src/**/*.js',['js']);
-    gulp.watch('./public/style.css',reload);
+    gulp.watch('./public/styles/style.css',reload);
 });
