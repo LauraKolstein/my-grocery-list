@@ -20,8 +20,7 @@ class App extends React.Component {
 		super();
 		this.state = {
 			lists: [],
-			loggedin: false,
-			status: "active"
+			loggedin: false
 		}
 		this.addList = this.addList.bind(this);
 		this.createUser = this.createUser.bind(this);
@@ -40,16 +39,14 @@ class App extends React.Component {
 					}
 					this.setState({
 						lists: dataArray,
-						loggedin: true,
-						status: "active"
+						loggedin: true
 					})
 				});
 			}
 			else {
 				this.setState({
 					lists: [],
-					loggedin: false,
-					status: "completed"
+					loggedin: false
 				})
 			}	
 		})
@@ -57,59 +54,28 @@ class App extends React.Component {
 	addList(e) {
 		e.preventDefault();
 		const list = {
-			item: this.state.value
+			item: this.item.value,
+			checked: false	
 		};
 		const userId = firebase.auth().currentUser.uid;
 		const dbRef = firebase.database().ref(`users/${userId}/lists`);
-
 		dbRef.push(list);
 
-		this.state.value="";
+		this.item.value = '';
 	}
 	removeList(listId) {
 		const userId = firebase.auth().currentUser.uid;
 		const dbRef = firebase.database().ref(`users/${userId}/lists/${listId}`);
 		dbRef.remove();
 	}
-	// onCheck(e) {
- //        //THIS ONE IS DONE
- //        //changing from 'active' to 'completed' and the reverse
- //        const desc = e.target.name
- //        firebase.auth().onAuthStateChanged((user) => {
- //        if(user) {
- //            const dbRef = firebase.database().ref(`users/${userId}/lists/`)
- //            dbRef.once('value', (data) => {
- //                // console.log(data.val())
- //                const dataList = data.val()
- //                for(let garbageKey in dataList) {
- //                    const actualData = dataList[garbageKey]
- //                    const newdbRef = firebase.database().ref(`users/${userId}/lists/${garbageKey}`)
- //                    for(let key in actualData) {
- //                        if(actualData[key].item === desc && actualData[key].status === 'active') {
- //                            console.log(actualData[key].status)
- //                            actualData[key].status = 'completed'
- //                            const dataKey = key 
- //                            // console.log(key)
- //                            const updates = { }
- //                            updates[`${key}`] = actualData[key]
- //                            newdbRef.update(updates)
- //                        }
- //                        else if (actualData[key].item === desc && actualData[key].status === 'completed') {
- //                            console.log('you already done')
- //                            console.log(actualData[key].status)
- //                            actualData[key].status = 'active'
- //                            const dataKey = key 
- //                            // console.log(key)
- //                            const updates = { }
- //                            updates[`${key}`] = actualData[key]
- //                            newdbRef.update(updates)
- //                        }
- //                    }
- //                }
- //            })
- //        }
- //        })
- //    }   
+	onChange(e,listId,item) {
+		const userId = firebase.auth().currentUser.uid;
+		const dbRef = firebase.database().ref(`users/${userId}/lists/${listId}`);
+		dbRef.set({
+			item: item,
+			checked: e.target.checked
+		});
+	} 
 	createUser(e) {
 		e.preventDefault();
 		//Check that passwords match and that they are at least six characters
@@ -151,18 +117,29 @@ class App extends React.Component {
 	}
 	renderCards() {
 		if(this.state.loggedin) {
-			return this.state.lists.map((list,i) => {
-				return (
-						<div className="items">
-							<NewList data={list} removeList={this.removeList} key={`list-${i}`}/>
-						</div>
-				)
+
+			const arrayOne = this.state.lists.filter(item => {
+			  return item.checked === false;
 			}).reverse();
-		}
-		else {
-			return (<h2>Please log in to add notes</h2>);
-		}
-	}
+
+			const arrayTwo = this.state.lists.filter(item => {
+			  return item.checked === true;
+			})
+
+			const combinedArrays = arrayOne.concat(arrayTwo);
+			return combinedArrays.map((list,i) => {
+			// return this.state.lists.map((list,i) => {
+                return (
+                        <div className="items">
+                            <NewList data={list} removeList={this.removeList} onChange={this.onChange} key={`list-${i}`}/>
+                        </div>
+                )
+            });
+        }
+        else {
+            return (<h2>Please log in to add notes</h2>);
+        }
+    }
 	render() {
 		return (
 			<div>
@@ -180,7 +157,7 @@ class App extends React.Component {
 											<h1>The Grocery List <i className="fa fa-shopping-cart" aria-hidden="true"></i></h1>
 											<p className="inside">Simply add each grocery item one at a time and watch your list generate. </p>
 											<form onSubmit={this.addList} className="addGroceryItem">
-												<input type="text" name="item" ref={ref => this.state = ref} />
+												<input type="text" name="item" ref={ref => this.item = ref} />
 												<button className="addGrocery">Add Item</button>
 											</form>
 											<div className="recipeList">
