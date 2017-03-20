@@ -38,7 +38,7 @@ export default class Recipes extends React.Component {
         })   
 	}
 	getRecipeIngredients() {
-		ajax, when({
+		ajax({
 		        url: 'http://proxy.hackeryou.com',
 			    dataType: 'json',
 			    method:'GET',

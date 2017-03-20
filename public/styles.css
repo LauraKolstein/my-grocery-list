@@ -9,21 +9,22 @@ input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}b
 
 body {
 	margin: 0 auto;  
-	background-image: url(assets/hero.jpg); // image purchased from iStock
+	background-image: url(assets/hero2.png); 
 	background-size: cover; 
-	height: 90vh;
+/*	height: 90vh;*/
 	background-attachment: fixed;
+	background-repeat: no-repeat;
 	font-family: 'Open Sans', sans-serif;
 	color: #00004c;
 }
 
 .wrapper {
-	margin: 10px auto;
+	margin: 5% auto 10px auto;
 	max-width: 1000px;
 	width: 80%;
 	padding: 15px 5% 25px 5%;
-	background-color: rgba(255, 255, 255, 0.8);
-	box-shadow: 0 0 20px 0 rgba(0, 0, 76, 0.5);   
+	background-color: rgba(255, 255, 255, 0.9);
+	box-shadow: 0 0 20px 0 rgba(0, 100, 0, 0.5);   
 }
 
 nav {
@@ -45,20 +46,93 @@ nav li a {
 }
 
 h1 {
-    padding-bottom: 5%;
-    font-family: 'Alfa Slab One', cursive;  
-    text-align: center;
-    font-size: 50px;	
+	padding: 2%;
+	font-family: 'Alfa Slab One', cursive;  
+	text-align: center;
+	font-size: 50px;	
+	color: #006400;
+	margin: 25px 0;
 }
 
 h3 {
 	font-weight: bold;
 	font-size: 30px;
+	color: #0e1717;
 }
+
+p {
+	font-size: 18px;
+}
+
+.appTitle {
+	font-family: 'Alfa Slab One', cursive; 
+	color: #006400;
+}
+
+a.title {
+	font-family: 'Alfa Slab One', cursive;  
+	color: #00004c; 
+	text-decoration: none;
+}
+
+.signIn {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.user-form {
+	margin: 10px;
+	padding: 0 25px 15px 25px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(204, 204, 204, 0.6);
+	width: 300px;
+	text-align: left;
+}
+
+button.getRecipes, button.addGrocery, button.logIn {
+	margin: 5% 0 0 0;
+	align-self: center;
+	background-color: #006400;
+	border: none; 
+	color: white;
+}
+
+button.logIn {
+	padding: 10px 25px;
+}
+
+button.getRecipes:hover, button.addGrocery:hover {
+	background-color: rgba(0, 100, 0, 0.5);
+	color: #006400; 
+	font-weight: bold; 
+}
+
+input[type=text], input[type=password] {
+	width: 255px;
+	padding: 10px 5px;
+	margin: 5px 0;
+}
+
 footer {
 	text-align: center;
-	padding-bottom: 10px;
 }
+
+footer p {
+	margin: 0;
+}
+
+a.website {
+	text-decoration: none;
+	color: #00004c;
+	background-color: rgba(255, 255, 255, 0.1);
+	font-size: 14px;	
+}
+
+/* When logged in */
 
 .recipeList {
 	background-color: white;
@@ -70,14 +144,8 @@ footer {
 .recipeList h3 {
 	text-align: center;
 }
-.listItems {
-	padding: 0 5%;
-}
-.items {
-	list-style-type: none;
-}
 
-.grocery-item{
+.grocery-item {
 	display: inline-block;
 	padding: 0 5% 5% 5%;
 	float: left;
@@ -91,79 +159,123 @@ footer {
 	float: right;
 	width: 10%;
 }
+
+button.addGrocery {
+	padding: 16px 55px;
+}
+
+button.getRecipes {
+	padding: 15px 50px;
+}
+
+.addGroceryItem {
+	padding: 0 23%;
+}
+.addGroceryItem input[type=text] {
+	padding: 15px 20px;
+}
+
 input[type=checkbox] {
 	margin-right: 10px;
 }
-.grocery-item input[type=checkbox]:checked ~ span{
+
+.grocery-item input[type=checkbox]:checked ~ span {
 	text-decoration: line-through;
 	color: ccc;
 }
 
-button.getRecipes, button.addGrocery, button.logIn {
-    margin: 5% 0 0 0;
-    align-self: center;
-    background-color: #00004c;
-    border: none; 
-    color: white;
-}
-button.addGrocery{
-	padding: 13px 55px 11px 55px;
-}
-button.getRecipes{
-	padding: 15px 50px;
-}
-button.logIn {
-	padding: 10px 25px;
-}
-
-button.getRecipes:hover, button.addGrocery:hover {
-    background-color: rgba(173, 216, 255, 0.5);
-/*    border: 1px solid #00004c;*/
-    color: #00004c; 
-    font-weight: bold; 
-}
-input[type=text] {
-	padding: 15px 40px;
-}
-.addGrocery {
-	padding: 0 23%;
-}
-
-.user-form {
-	margin: 15px 0;
-	padding: 25px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background-color: rgba(204, 204, 204, 0.4);
-	width: 300px;
-	text-align: left;
-}
-input[type=text], input[type=password] {
-	width: 250px;
-	padding: 10px 5px;
-	margin: 5px 0;
-}
-.signIn {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-}
-
 .inside {
 	text-align: center;
+	width: 75%;
+	margin: 5% auto;
 }
 
-a.website {
-    text-decoration: none;
-    color: #00004c;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 1%;
+@media (max-width: 1400px) {
+	.wrapper {
+		margin: 1% auto 0 auto;
+	}
+
+	h1 {
+		margin: 0;
+		padding: 2% 2% 0 2%;
+	}
+
+	.addGroceryItem input[type=text]{
+		margin: 5px 0 5px 4%;
+	}
+
+}
+@media (max-width: 1198px) {
+	button.addGrocery{
+	width: 100%;		
+	}
+
+	.addGroceryItem input[type=text] {
+	width: 100%;
+	}
 }
 
+@media (max-width: 860px) {
+	.signIn {
+		flex-direction: column;
+	}
 
+	.user-form {
+		width: 90%;
+	}
 
+	input[type=text], input[type=password] {
+		width: 90%;
+	}
+}
+
+@media (max-width: 748px) {
+	h1 {
+		font-size: 40px;
+	}
+}
+
+@media (max-width: 660px) {
+	.recipeList {
+		width: 375px;
+	}
+ 	h3 {
+ 		font-size: 24px;
+ 	}
+ 	p.grocery-item {
+ 		font-size: 16px;
+ 	}
+
+ 	.addGroceryItem {
+		padding: 0 5%;
+	}
+}
+
+@media (max-width: 555px) {
+	.recipeList {
+		width: 90%;
+	}
+
+	button.logIn {
+		width: 90%;
+	}
+
+	p {
+		margin: 5%;
+	}
+}
+
+@media (max-width: 400px) {
+	h1 {
+		font-size: 32px;
+	}
+	h3 {
+		font-size: 20px;
+	}
+	p.grocery-item, p.inside, a.website {
+		font-size: 15px;
+	}
+}
 
 
 

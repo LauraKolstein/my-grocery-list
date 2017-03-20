@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import Login from './components/login';
 import Footer from './components/footer';
 import NewList from './components/newList';
 // import Recipes from './components/getRecipes';
@@ -21,13 +20,10 @@ class App extends React.Component {
 		super();
 		this.state = {
 			lists: [],
-			loggedin: false
-			// name: "",
-			// item: ""
+			loggedin: false,
+			status: "active"
 		}
 		this.addList = this.addList.bind(this);
-		// this.handleChange = this.handleChange.bind(this);
-		// this.showCreate = this.showCreate.bind(this);
 		this.createUser = this.createUser.bind(this);
 		this.showLogin = this.showLogin.bind(this);
 		this.loginUser = this.loginUser.bind(this);
@@ -44,23 +40,20 @@ class App extends React.Component {
 					}
 					this.setState({
 						lists: dataArray,
-						loggedin: true
+						loggedin: true,
+						status: "active"
 					})
 				});
 			}
 			else {
 				this.setState({
 					lists: [],
-					loggedin: false
+					loggedin: false,
+					status: "completed"
 				})
 			}	
 		})
 	}
-	// handleChange(e) {
-	// 	this.setState({
-	// 		[e.target.name]: e.target.value
-	// 	});
-	// }
 	addList(e) {
 		e.preventDefault();
 		const list = {
@@ -78,6 +71,45 @@ class App extends React.Component {
 		const dbRef = firebase.database().ref(`users/${userId}/lists/${listId}`);
 		dbRef.remove();
 	}
+	// onCheck(e) {
+ //        //THIS ONE IS DONE
+ //        //changing from 'active' to 'completed' and the reverse
+ //        const desc = e.target.name
+ //        firebase.auth().onAuthStateChanged((user) => {
+ //        if(user) {
+ //            const dbRef = firebase.database().ref(`users/${userId}/lists/`)
+ //            dbRef.once('value', (data) => {
+ //                // console.log(data.val())
+ //                const dataList = data.val()
+ //                for(let garbageKey in dataList) {
+ //                    const actualData = dataList[garbageKey]
+ //                    const newdbRef = firebase.database().ref(`users/${userId}/lists/${garbageKey}`)
+ //                    for(let key in actualData) {
+ //                        if(actualData[key].item === desc && actualData[key].status === 'active') {
+ //                            console.log(actualData[key].status)
+ //                            actualData[key].status = 'completed'
+ //                            const dataKey = key 
+ //                            // console.log(key)
+ //                            const updates = { }
+ //                            updates[`${key}`] = actualData[key]
+ //                            newdbRef.update(updates)
+ //                        }
+ //                        else if (actualData[key].item === desc && actualData[key].status === 'completed') {
+ //                            console.log('you already done')
+ //                            console.log(actualData[key].status)
+ //                            actualData[key].status = 'active'
+ //                            const dataKey = key 
+ //                            // console.log(key)
+ //                            const updates = { }
+ //                            updates[`${key}`] = actualData[key]
+ //                            newdbRef.update(updates)
+ //                        }
+ //                    }
+ //                }
+ //            })
+ //        }
+ //        })
+ //    }   
 	createUser(e) {
 		e.preventDefault();
 		//Check that passwords match and that they are at least six characters
@@ -100,8 +132,6 @@ class App extends React.Component {
 	}
 	showLogin(e) {
 		e.preventDefault();
-		// this.overlay.classList.toggle('show');
-		// this.loginModal.classList.toggle('show');
 	}
 	loginUser(e) {
 		e.preventDefault();
@@ -149,7 +179,7 @@ class App extends React.Component {
 											</nav>
 											<h1>The Grocery List <i className="fa fa-shopping-cart" aria-hidden="true"></i></h1>
 											<p className="inside">Simply add each grocery item one at a time and watch your list generate. </p>
-											<form onSubmit={this.addList} className="addGrocery">
+											<form onSubmit={this.addList} className="addGroceryItem">
 												<input type="text" name="item" ref={ref => this.state = ref} />
 												<button className="addGrocery">Add Item</button>
 											</form>
@@ -157,6 +187,7 @@ class App extends React.Component {
 												<h3> My Grocery List</h3>
 												{this.renderCards()}
 											</div>
+											<p className="inside">Need some inspiration? Check out <a href="http://laurakolstein.com/projectFour/" className="title" target="_blank">What's for Dinner Tonight?</a> to find your next recipe.</p>
 										</div>	
 									)
 								}
@@ -164,23 +195,21 @@ class App extends React.Component {
 									return (
 										<div>
 											<h1>The Grocery List <i className="fa fa-shopping-cart" aria-hidden="true"></i></h1>
-											<p>Let this form help you organize your grocery list! Say goodbye to scrap papers with lists scribbled on them. Sign up or log in to create your list!</p>
-											<div>
-												<div className="signIn">
-													<form onSubmit={this.createUser} className="user-form user-form-signup">
-														<h3>Sign up</h3>
-														<input type="text" name="createEmail" ref={ref => this.createEmail = ref} placeholder="Email:"/>
-														<input type="password" name="createPassword" ref={ref => this.createPassword = ref} placeholder="Password:"/>
-														<input type="password" name="confirmPassword" ref={ref => this.confirmPassword = ref} placeholder="Confirm Password:"/>
-														<button className="logIn">Sign Up</button>
-													</form>
-													<form onSubmit={this.loginUser} className="user-form user-form-login">
-														<h3>Log in</h3>
-														<input type="text" name="email" ref={ref => this.userEmail = ref} placeholder="Email:"/>
-														<input type="password" name="password" ref={ref => this.userPassword = ref} placeholder="Password:"/>
-														<button className="logIn">Log In</button>
-													</form>
-												</div>
+											<p>Say goodbye to the scrap pieces of paper you scribble your grocery list on. <span className="appTitle">The Grocery List</span> is here to help you get organized for your next trip to the supermarket! Sign up or log in to create your list!</p>
+											<div className="signIn">
+												<form onSubmit={this.createUser} className="user-form">
+													<h3>Sign up</h3>
+													<input type="text" name="createEmail" ref={ref => this.createEmail = ref} placeholder="Email:"/>
+													<input type="password" name="createPassword" ref={ref => this.createPassword = ref} placeholder="Password:"/>
+													<input type="password" name="confirmPassword" ref={ref => this.confirmPassword = ref} placeholder="Confirm Password:"/>
+													<button className="logIn">Sign Up</button>
+												</form>
+												<form onSubmit={this.loginUser} className="user-form">
+													<h3>Log in</h3>
+													<input type="text" name="email" ref={ref => this.userEmail = ref} placeholder="Email:"/>
+													<input type="password" name="password" ref={ref => this.userPassword = ref} placeholder="Password:"/>
+													<button className="logIn">Log In</button>
+												</form>
 											</div>
 										</div>
 									)									
