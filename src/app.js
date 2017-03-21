@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Footer from './components/footer';
 import NewList from './components/newList';
-// import Recipes from './components/getRecipes';
 
 const config = {
 	apiKey: "AIzaSyC_Y8rWLF1WaJagLF-F8KrRg3jcBd0uFxE",
@@ -78,8 +77,7 @@ class App extends React.Component {
 	} 
 	createUser(e) {
 		e.preventDefault();
-		//Check that passwords match and that they are at least six characters
-		//if so, we want to create a user
+		//Check that passwords match and that they are at least six characters if so, we want to create a user
 		const email = this.createEmail.value;
 		const password = this.createPassword.value;
 		const confirm = this.confirmPassword.value;
@@ -128,7 +126,6 @@ class App extends React.Component {
 
 			const combinedArrays = arrayOne.concat(arrayTwo);
 			return combinedArrays.map((list,i) => {
-			// return this.state.lists.map((list,i) => {
                 return (
                         <div className="items">
                             <NewList data={list} removeList={this.removeList} onChange={this.onChange} key={`list-${i}`}/>

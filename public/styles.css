@@ -11,7 +11,6 @@ body {
 	margin: 0 auto;  
 	background-image: url(assets/hero2.png); 
 	background-size: cover; 
-/*	height: 90vh;*/
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	font-family: 'Open Sans', sans-serif;
