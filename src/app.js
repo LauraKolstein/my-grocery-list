@@ -154,7 +154,7 @@ class App extends React.Component {
 											<h1>The Grocery List <i className="fa fa-shopping-cart" aria-hidden="true"></i></h1>
 											<p className="inside">Simply add each grocery item one at a time and watch your list generate. </p>
 											<form onSubmit={this.addList} className="addGroceryItem">
-												<input type="text" name="item" ref={ref => this.item = ref} />
+												<input type="text" name="item" ref={ref => this.item = ref} required/>
 												<button className="addGrocery">Add Item</button>
 											</form>
 											<div className="recipeList">
